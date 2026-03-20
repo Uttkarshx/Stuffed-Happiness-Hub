@@ -123,6 +123,11 @@ export default function ProductDetailPage({ params }: ProductDetailProps) {
   };
 
   const handleShare = async () => {
+    if (!product) {
+      toast.error('Product not found');
+      return;
+    }
+
     const shareData = {
       title: product.name,
       text: `Check out this cute plush gift: ${product.name}`,
