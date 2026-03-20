@@ -14,6 +14,12 @@ const isConfigured = Boolean(
 );
 const client = isConfigured ? twilio(TWILIO_SID, TWILIO_AUTH_TOKEN) : null;
 
+if (isConfigured) {
+  console.log('Twilio initialized');
+} else {
+  console.warn('Twilio not configured. WhatsApp notifications are disabled.');
+}
+
 const toWhatsAppAddress = (value) => {
   const raw = String(value || '').trim();
   if (!raw) return '';
@@ -59,8 +65,7 @@ const sendWhatsAppMessage = async (order) => {
     });
     console.info(`Twilio message sent: SID=${response.sid}, Status=${response.status}`);
   } catch (error) {
-    console.error(error?.code);
-    console.error(error?.message || error);
+    console.error('Twilio error:', error?.message || error);
     console.error(error?.response?.data);
   }
 };

@@ -523,22 +523,19 @@ function CheckoutContent() {
                     </div>
                   </label>
 
-                  <label className={`flex items-center gap-4 p-4 rounded-lg border-2 cursor-pointer transition-all ${
-                    formData.paymentMethod === 'razorpay'
-                      ? 'border-primary bg-primary/5'
-                      : 'border-border hover:border-primary/50'
-                  }`}>
+                  <label className="flex items-center gap-4 rounded-lg border-2 border-border bg-muted/40 p-4 opacity-70">
                     <input
                       type="radio"
                       name="paymentMethod"
                       value="razorpay"
-                      checked={formData.paymentMethod === 'razorpay'}
+                      checked={false}
                       onChange={handleChange}
-                      className="w-4 h-4 accent-primary"
+                      disabled
+                      className="h-4 w-4 accent-primary"
                     />
                     <div>
-                      <p className="font-semibold text-foreground flex items-center gap-2"><CreditCard size={16} /> Pay Online (Razorpay)</p>
-                      <p className="text-sm text-muted-foreground">UPI, Cards, Net Banking</p>
+                      <p className="flex items-center gap-2 font-semibold text-foreground"><CreditCard size={16} /> Pay Online (Razorpay) <span className="rounded-full bg-yellow-100 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-yellow-700">Coming Soon 🚧</span></p>
+                      <p className="text-sm text-muted-foreground">Online payments will be available soon</p>
                     </div>
                   </label>
                 </div>
