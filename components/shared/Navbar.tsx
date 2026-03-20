@@ -262,7 +262,7 @@ export default function Navbar() {
                         <p className="text-xs text-muted-foreground">{user.email}</p>
                       </div>
                       <Link
-                        href="/account"
+                        href="/profile"
                         className="block px-4 py-2 text-sm text-foreground transition-colors hover:bg-muted hover:text-primary"
                         onClick={() => setProfileDropdownOpen(false)}
                       >
@@ -367,7 +367,7 @@ export default function Navbar() {
               <>
                 <div className="border-t border-border pt-2">
                   <Link
-                    href="/account"
+                    href="/profile"
                     className="block px-4 py-2 text-foreground hover:bg-muted rounded-lg transition-colors text-sm"
                     onClick={() => setMobileMenuOpen(false)}
                   >

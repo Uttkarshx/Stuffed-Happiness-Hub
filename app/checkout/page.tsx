@@ -36,6 +36,8 @@ function CheckoutContent() {
   const [isDetectingLocation, setIsDetectingLocation] = useState(false);
   const [orderSuccess, setOrderSuccess] = useState(false);
   const [orderId, setOrderId] = useState('');
+  const [couponCode, setCouponCode] = useState('');
+  const [appliedCoupon, setAppliedCoupon] = useState<{ code: string; percent: number } | null>(null);
   const [formData, setFormData] = useState({
     name: user?.name || '',
     phone: user?.phone || '',
@@ -130,7 +132,31 @@ function CheckoutContent() {
   );
   const shipping = calculateShipping(subtotal);
   const tax = calculateTax(subtotal);
-  const total = subtotal + shipping + tax;
+  const discountAmount = appliedCoupon ? Math.round((subtotal * appliedCoupon.percent) / 100) : 0;
+  const total = subtotal + shipping + tax - discountAmount;
+
+  const handleApplyCoupon = () => {
+    const normalized = couponCode.trim().toUpperCase();
+    const coupons: Record<string, number> = {
+      LOVE10: 10,
+      TEDDY20: 20,
+    };
+
+    if (!normalized) {
+      toast.error('Enter a coupon code first');
+      return;
+    }
+
+    const percent = coupons[normalized];
+    if (!percent) {
+      setAppliedCoupon(null);
+      toast.error('Invalid coupon code');
+      return;
+    }
+
+    setAppliedCoupon({ code: normalized, percent });
+    toast.success(`Coupon applied: ${normalized} (${percent}% off)`);
+  };
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -550,9 +576,28 @@ function CheckoutContent() {
               </div>
 
               <div className="space-y-3 mb-6 pb-6 border-b border-border">
+                <div>
+                  <label className="mb-2 block text-sm font-semibold text-foreground">Apply Coupon</label>
+                  <div className="flex gap-2">
+                    <Input
+                      value={couponCode}
+                      onChange={(e) => setCouponCode(e.target.value)}
+                      placeholder="LOVE10 or TEDDY20"
+                      className="h-10 rounded-xl bg-white"
+                    />
+                    <Button type="button" variant="outline" onClick={handleApplyCoupon} className="h-10 rounded-xl">
+                      Apply
+                    </Button>
+                  </div>
+                </div>
+
                 <div className="flex justify-between text-sm text-muted-foreground">
                   <span>Subtotal</span>
                   <span>{formatPrice(subtotal)}</span>
+                </div>
+                <div className="flex justify-between text-sm text-muted-foreground">
+                  <span>Coupon Discount</span>
+                  <span>-{formatPrice(discountAmount)}</span>
                 </div>
                 <div className="flex justify-between text-sm text-muted-foreground">
                   <span>Shipping</span>

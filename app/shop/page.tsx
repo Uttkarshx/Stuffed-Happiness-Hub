@@ -86,6 +86,20 @@ export default function ShopPage() {
             Discover {filteredProducts.length} {filteredProducts.length === 1 ? 'product' : 'products'}
           </p>
 
+          <div className="soft-scroll-x mt-4 flex gap-2 overflow-x-auto pb-2">
+            {['all', 'girlfriend', 'kids', 'friends', 'family', 'general'].map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setCategory(cat)}
+                className={`rounded-full px-4 py-2 text-xs font-semibold capitalize transition ${
+                  category === cat ? 'bg-primary text-white shadow-[0_8px_20px_rgba(255,111,145,0.25)]' : 'bg-white/80 text-muted-foreground'
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+
           <div className="relative mt-5 max-w-xl">
             <Search size={18} className="pointer-events-none absolute left-3 top-3 text-muted-foreground" />
             <input

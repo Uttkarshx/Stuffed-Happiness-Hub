@@ -9,13 +9,14 @@ import { useWishlist } from '@/hooks/useWishlist';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import Loader from '@/components/shared/Loader';
-import { Heart, ShoppingCart, Star, Check, Truck, RotateCw } from 'lucide-react';
+import { Heart, ShoppingCart, Star, Check, Truck, RotateCw, Share2 } from 'lucide-react';
 import { toast } from 'sonner';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import ProductCard from '@/components/product/ProductCard';
+import { getDiscountBadge, getDynamicOriginalPrice } from '@/lib/pricing';
 
 interface ProductDetailProps {
   params: Promise<{ id: string }>;
@@ -40,6 +41,7 @@ export default function ProductDetailPage({ params }: ProductDetailProps) {
   const isWishlisted = product ? isInWishlist(product.id) : false;
 
   const productReviews = product?.reviewsData ?? [];
+  const originalPrice = product ? getDynamicOriginalPrice(product) : 0;
 
   useEffect(() => {
     let isActive = true;
@@ -117,6 +119,25 @@ export default function ProductDetailPage({ params }: ProductDetailProps) {
     } else {
       addToWishlist(product.id);
       toast.success('Added to wishlist!');
+    }
+  };
+
+  const handleShare = async () => {
+    const shareData = {
+      title: product.name,
+      text: `Check out this cute plush gift: ${product.name}`,
+      url: typeof window !== 'undefined' ? window.location.href : '',
+    };
+
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+      } else {
+        await navigator.clipboard.writeText(shareData.url);
+        toast.success('Product link copied!');
+      }
+    } catch {
+      toast.error('Unable to share this product right now.');
     }
   };
 
@@ -255,18 +276,12 @@ export default function ProductDetailPage({ params }: ProductDetailProps) {
             {/* Price */}
             <div className="flex items-baseline gap-3 mb-6">
               <span className="text-4xl font-bold text-foreground">{formatPrice(product.price)}</span>
-              {product.originalPrice && (
-                <>
-                  <span className="text-xl text-muted-foreground line-through">
-                    {formatPrice(product.originalPrice)}
-                  </span>
-                  {product.discount && (
-                    <span className="text-sm font-semibold text-primary bg-primary/10 px-3 py-1 rounded-full">
-                      Save {product.discount}%
-                    </span>
-                  )}
-                </>
-              )}
+              <span className="text-xl text-muted-foreground line-through">
+                {formatPrice(originalPrice)}
+              </span>
+              <span className="text-sm font-semibold text-primary bg-primary/10 px-3 py-1 rounded-full">
+                {getDiscountBadge(product)}
+              </span>
             </div>
 
             {/* Description */}
@@ -334,6 +349,9 @@ export default function ProductDetailPage({ params }: ProductDetailProps) {
                     size={20}
                     className={isWishlisted ? 'fill-primary' : ''}
                   />
+                </Button>
+                <Button size="lg" variant="outline" onClick={handleShare} className="rounded-full">
+                  <Share2 size={18} />
                 </Button>
               </div>
               <Button
@@ -535,16 +553,6 @@ export default function ProductDetailPage({ params }: ProductDetailProps) {
         </div>
       </div>
 
-      <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-border bg-white/95 p-3 backdrop-blur sm:hidden">
-        <div className="mx-auto flex max-w-7xl gap-2">
-          <Button onClick={handleAddToCart} variant="outline" className="flex-1 rounded-full">
-            Add to Cart
-          </Button>
-          <Button onClick={() => handleBuyNow(product)} className="flex-1 rounded-full bg-linear-to-r from-primary to-accent text-white">
-            Buy Now
-          </Button>
-        </div>
-      </div>
     </div>
   );
 }

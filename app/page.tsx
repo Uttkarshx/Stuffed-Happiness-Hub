@@ -13,6 +13,13 @@ import { toast } from 'sonner';
 
 function HomePage() {
   const [products, setProducts] = useState<Product[]>([]);
+  const [bannerIndex, setBannerIndex] = useState(0);
+
+  const offerBanners = [
+    { title: 'Midnight Plush Sale', subtitle: 'Get up to 30% OFF on dreamy plush gifts', image: '/images/products/unicorn.jpg' },
+    { title: 'Couple Gift Week', subtitle: 'Romantic teddy picks crafted for heart-melting surprises', image: '/images/products/teddy-pink.jpg' },
+    { title: 'Birthday Cuteness Drop', subtitle: 'Cute plushies everyone loves to unwrap', image: '/images/products/panda.jpg' },
+  ];
 
   useEffect(() => {
     const loadProducts = async () => {
@@ -37,6 +44,13 @@ function HomePage() {
     loadProducts();
   }, []);
 
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setBannerIndex((prev) => (prev + 1) % offerBanners.length);
+    }, 4200);
+    return () => clearInterval(timer);
+  }, [offerBanners.length]);
+
   const trendingProducts = useMemo(
     () => {
       const trending = products.filter((p) => p.isTrending);
@@ -60,28 +74,28 @@ function HomePage() {
 
   const categories = [
     {
-      name: 'For Girlfriend 💖',
-      href: '/shop?category=girlfriend',
+      name: 'Teddy Bears 🧸',
+      href: '/shop?category=general',
       image: '/images/products/teddy-pink.jpg',
-      description: 'Romantic picks for unforgettable surprises.',
+      description: 'Classic cuddle gifts with premium charm.',
     },
     {
-      name: 'For Kids 🧸',
-      href: '/shop?category=kids',
+      name: 'Couples Gifts 💞',
+      href: '/shop?category=girlfriend',
       image: '/images/products/unicorn.jpg',
-      description: 'Soft, playful toys for little smiles.',
+      description: 'Romantic plush picks for special moments.',
     },
     {
-      name: 'For Friends 🤝',
-      href: '/shop?category=friends',
+      name: 'Birthday Gifts 🎂',
+      href: '/shop?category=kids',
       image: '/images/products/panda.jpg',
-      description: 'Cute gifts that celebrate your bond.',
+      description: 'Party-ready plush gifts full of joy.',
     },
     {
-      name: 'For Family 👨‍👩‍👧',
-      href: '/shop?category=family',
+      name: 'Cute Plushies 🌸',
+      href: '/shop?category=friends',
       image: '/images/products/koala.jpg',
-      description: 'Comforting classics for heartfelt moments.',
+      description: 'Aesthetic soft toys for everyday smiles.',
     },
   ];
 
@@ -152,6 +166,22 @@ function HomePage() {
             <div className="absolute -bottom-3 right-4 rounded-2xl bg-white/95 px-4 py-2 shadow-lg">
               <p className="text-xs text-muted-foreground">Trending Today</p>
               <p className="text-sm font-semibold text-foreground">Magical Unicorn Gifts</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 pb-4 sm:px-6 lg:px-8">
+        <div className="relative overflow-hidden rounded-3xl border border-border bg-white/85 p-5 shadow-[0_12px_30px_rgba(255,111,145,0.12)] sm:p-7">
+          <div className="grid items-center gap-5 sm:grid-cols-2">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-wide text-primary">Limited Time Offer</p>
+              <h3 className="mt-2 text-2xl font-bold text-foreground">{offerBanners[bannerIndex].title}</h3>
+              <p className="mt-2 text-sm text-muted-foreground">{offerBanners[bannerIndex].subtitle}</p>
+              <Link href="/shop" className="mt-4 inline-block text-sm font-semibold text-primary">Shop Offer →</Link>
+            </div>
+            <div className="relative h-44 overflow-hidden rounded-2xl sm:h-48">
+              <Image src={offerBanners[bannerIndex].image} alt={offerBanners[bannerIndex].title} fill className="object-cover" sizes="(max-width: 768px) 100vw, 40vw" />
             </div>
           </div>
         </div>

@@ -5,7 +5,9 @@ import { Toaster } from 'sonner'
 import Navbar from '@/components/shared/Navbar'
 import Footer from '@/components/shared/Footer'
 import ScrollToTop from '@/components/shared/ScrollToTop'
-import WhatsAppFloat from '@/components/shared/WhatsAppFloat'
+import ChatbotFloat from '@/components/shared/ChatbotFloat'
+import BottomNav from '@/components/shared/BottomNav'
+import AuthGate from '@/components/shared/AuthGate'
 import './globals.css'
 
 const _poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: '--font-poppins' });
@@ -42,12 +44,15 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${_poppins.variable} ${_inter.variable} ${_playfair.variable}`}>
       <body className="bg-background text-foreground">
-        <Navbar />
-        <main className="min-h-screen pb-16 lg:pb-0">
-          {children}
-        </main>
-        <Footer />
-        <WhatsAppFloat />
+        <AuthGate>
+          <Navbar />
+          <main className="min-h-screen pb-20 lg:pb-0">
+            {children}
+          </main>
+          <Footer />
+          <BottomNav />
+        </AuthGate>
+        <ChatbotFloat />
         <ScrollToTop />
         <Toaster richColors position="top-right" />
         <Analytics />

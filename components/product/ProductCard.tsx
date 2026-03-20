@@ -11,6 +11,7 @@ import { toast } from 'sonner';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { getDiscountBadge, getDynamicDiscountPercent, getDynamicOriginalPrice } from '@/lib/pricing';
 
 interface ProductCardProps {
   product: Product;
@@ -26,6 +27,8 @@ export default function ProductCard({ product }: ProductCardProps) {
     [product.images, product.image]
   );
   const [imageSrc, setImageSrc] = useState(primaryImage);
+  const discountPercent = getDynamicDiscountPercent(product);
+  const originalPrice = getDynamicOriginalPrice(product);
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -78,11 +81,9 @@ export default function ProductCard({ product }: ProductCardProps) {
             />
 
             {/* Discount Badge */}
-            {product.discount && (
-              <div className="absolute top-3 right-3 rounded-full bg-linear-to-r from-primary to-accent px-3 py-1 text-sm font-semibold text-white shadow-lg">
-                -{product.discount}%
-              </div>
-            )}
+            <div className="absolute top-3 right-3 rounded-full bg-linear-to-r from-primary to-accent px-3 py-1 text-xs font-semibold text-white shadow-lg">
+              {getDiscountBadge(product)}
+            </div>
 
             {product.isTrending && (
               <div className="absolute right-3 top-14 rounded-full bg-white/90 px-3 py-1 text-[11px] font-semibold text-rose-600 shadow">
@@ -163,12 +164,17 @@ export default function ProductCard({ product }: ProductCardProps) {
               <span className="text-lg font-bold text-foreground">
                 {formatPrice(product.price)}
               </span>
+              <span className="text-sm text-muted-foreground line-through">
+                {formatPrice(originalPrice)}
+              </span>
               {product.originalPrice && (
                 <span className="text-sm text-muted-foreground line-through">
                   {formatPrice(product.originalPrice)}
                 </span>
               )}
             </div>
+
+            <p className="text-xs font-medium text-primary/85">Only {Math.max(3, 18 - (discountPercent % 12))} left at this price</p>
 
             <div className="mt-2 grid grid-cols-1 gap-2 opacity-95 transition duration-300 group-hover:opacity-100 sm:grid-cols-2">
               <motion.button
