@@ -123,6 +123,7 @@
   body {
     @apply bg-background text-foreground antialiased;
     font-family: var(--font-body);
+    overflow-x: hidden;
     background-image:
       radial-gradient(circle at 10% 20%, rgba(255, 182, 193, 0.28) 0%, transparent 26%),
       radial-gradient(circle at 84% 10%, rgba(255, 133, 161, 0.2) 0%, transparent 24%),

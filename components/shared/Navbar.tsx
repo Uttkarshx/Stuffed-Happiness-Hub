@@ -98,7 +98,7 @@ export default function Navbar() {
   return (
     <nav className="sticky top-0 z-50 border-b border-border/70 bg-white/75 backdrop-blur-xl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex h-18 items-center justify-between gap-3 py-3">
+        <div className="flex items-center justify-between gap-2 py-2 sm:gap-3 sm:py-3">
           {/* Logo */}
           <Link href="/" className="flex shrink-0 items-center gap-2">
             <div className="hero-glow flex h-10 w-10 items-center justify-center rounded-2xl bg-linear-to-br from-primary to-accent shadow-md">
@@ -152,7 +152,7 @@ export default function Navbar() {
           </div>
 
           {/* Search Bar - Desktop */}
-          <div ref={searchRef} className="relative hidden max-w-sm flex-1 md:flex">
+          <div ref={searchRef} className="relative hidden max-w-sm flex-1 lg:flex">
             <div className="relative w-full">
               <input
                 type="text"
@@ -202,11 +202,11 @@ export default function Navbar() {
           </div>
 
           {/* Right Side - Icons & Auth */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-1.5 sm:gap-3">
             {/* Wishlist */}
             <Link
               href="/wishlist"
-              className="relative flex h-10 w-10 items-center justify-center rounded-full transition-colors hover:bg-muted"
+              className="relative hidden h-10 w-10 items-center justify-center rounded-full transition-colors hover:bg-muted sm:flex"
               title="Wishlist"
             >
               <Heart size={20} className="text-foreground" />
@@ -220,7 +220,7 @@ export default function Navbar() {
             {/* Cart */}
             <Link
               href="/cart"
-              className="relative flex h-10 w-10 items-center justify-center rounded-full transition-colors hover:bg-muted"
+              className="relative hidden h-10 w-10 items-center justify-center rounded-full transition-colors hover:bg-muted sm:flex"
               title="Cart"
             >
               <ShoppingCart size={20} className="text-foreground" />
@@ -304,6 +304,7 @@ export default function Navbar() {
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="rounded-full p-2 transition-colors hover:bg-muted lg:hidden"
+              aria-label="Toggle mobile menu"
             >
               {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -410,7 +411,7 @@ export default function Navbar() {
         )}
       </div>
 
-      <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-border bg-white/90 px-4 py-2 backdrop-blur lg:hidden">
+      <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-border bg-white/95 px-3 py-2 pb-[calc(env(safe-area-inset-bottom)+0.5rem)] backdrop-blur lg:hidden">
         <div className="mx-auto flex max-w-7xl items-center justify-around">
           <Link href="/wishlist" className="relative rounded-xl px-3 py-2 text-xs font-medium text-foreground">
             Wishlist

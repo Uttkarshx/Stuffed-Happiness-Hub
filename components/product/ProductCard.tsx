@@ -158,10 +158,10 @@ export default function ProductCard({ product }: ProductCardProps) {
               )}
             </div>
 
-            <div className="mt-2 flex gap-2">
+            <div className="mt-2 grid grid-cols-1 gap-2 sm:grid-cols-2">
               <motion.button
                 onClick={handleAddToCart}
-                className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-primary py-2 text-sm font-semibold text-white transition-all duration-300 hover:scale-105 hover:shadow-lg hover:bg-primary/90"
+                className="flex items-center justify-center gap-2 rounded-xl bg-primary py-2 text-sm font-semibold text-white transition-all duration-300 hover:scale-105 hover:shadow-lg hover:bg-primary/90"
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
               >
@@ -171,7 +171,7 @@ export default function ProductCard({ product }: ProductCardProps) {
 
               <motion.button
                 onClick={(e) => handleBuyNow(e, product)}
-                className="flex-1 rounded-xl bg-linear-to-r from-pink-500 to-rose-500 py-2 text-sm font-semibold text-white transition-all duration-300 hover:scale-105 hover:shadow-lg"
+                className="rounded-xl bg-linear-to-r from-pink-500 to-rose-500 py-2 text-sm font-semibold text-white transition-all duration-300 hover:scale-105 hover:shadow-lg"
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
               >
