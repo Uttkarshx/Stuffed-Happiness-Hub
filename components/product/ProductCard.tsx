@@ -64,7 +64,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       viewport={{ once: true }}
     >
       <Link href={`/product/${product._id || product.id}`}>
-        <div className="group card-soft h-full flex flex-col overflow-hidden transition duration-300 hover:-translate-y-1">
+        <div className="group card-soft h-full flex flex-col overflow-hidden transition duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(255,111,145,0.22)]">
           {/* Image Container */}
           <div className="relative h-64 overflow-hidden bg-muted/50 sm:h-72">
             <Image
@@ -81,6 +81,18 @@ export default function ProductCard({ product }: ProductCardProps) {
             {product.discount && (
               <div className="absolute top-3 right-3 rounded-full bg-linear-to-r from-primary to-accent px-3 py-1 text-sm font-semibold text-white shadow-lg">
                 -{product.discount}%
+              </div>
+            )}
+
+            {product.isTrending && (
+              <div className="absolute right-3 top-14 rounded-full bg-white/90 px-3 py-1 text-[11px] font-semibold text-rose-600 shadow">
+                🔥 Trending
+              </div>
+            )}
+
+            {product.isBestSeller && (
+              <div className="absolute left-3 top-14 rounded-full bg-white/90 px-3 py-1 text-[11px] font-semibold text-pink-600 shadow">
+                💝 Best Seller
               </div>
             )}
 
@@ -158,7 +170,7 @@ export default function ProductCard({ product }: ProductCardProps) {
               )}
             </div>
 
-            <div className="mt-2 grid grid-cols-1 gap-2 sm:grid-cols-2">
+            <div className="mt-2 grid grid-cols-1 gap-2 opacity-95 transition duration-300 group-hover:opacity-100 sm:grid-cols-2">
               <motion.button
                 onClick={handleAddToCart}
                 className="flex items-center justify-center gap-2 rounded-xl bg-primary py-2 text-sm font-semibold text-white transition-all duration-300 hover:scale-105 hover:shadow-lg hover:bg-primary/90"

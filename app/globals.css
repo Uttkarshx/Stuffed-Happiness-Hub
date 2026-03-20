@@ -4,23 +4,23 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: #fff5f7;
+  --background: #fff9f7;
   --foreground: #1f2937;
   --card: #ffffff;
   --card-foreground: #1f2937;
   --popover: #ffffff;
   --popover-foreground: #1f2937;
-  --primary: #ff6b9d;
+  --primary: #ff6f91;
   --primary-foreground: #ffffff;
-  --secondary: #ffb6c1;
+  --secondary: #ffc7d6;
   --secondary-foreground: #1f2937;
-  --muted: #ffe8ee;
+  --muted: #fff0f3;
   --muted-foreground: #6b7280;
-  --accent: #ff85a1;
+  --accent: #f9a8d4;
   --accent-foreground: #ffffff;
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.577 0.245 27.325);
-  --border: #ffd1dc;
+  --border: #ffd8df;
   --input: #fffafc;
   --ring: #ff6b9d;
   --chart-1: #ff6b9d;
@@ -28,7 +28,7 @@
   --chart-3: #ffb6c1;
   --chart-4: #ffd1dc;
   --chart-5: #f9a8d4;
-  --radius: 1rem;
+  --radius: 1.25rem;
   --sidebar: #fff7f9;
   --sidebar-foreground: #1f2937;
   --sidebar-primary: #ff6b9d;
@@ -124,10 +124,13 @@
     @apply bg-background text-foreground antialiased;
     font-family: var(--font-body);
     overflow-x: hidden;
+    letter-spacing: 0.01em;
+    transition: background-color 0.3s ease, color 0.3s ease;
     background-image:
       radial-gradient(circle at 10% 20%, rgba(255, 182, 193, 0.28) 0%, transparent 26%),
-      radial-gradient(circle at 84% 10%, rgba(255, 133, 161, 0.2) 0%, transparent 24%),
-      radial-gradient(circle at 70% 82%, rgba(255, 209, 220, 0.35) 0%, transparent 28%);
+      radial-gradient(circle at 84% 10%, rgba(200, 162, 255, 0.18) 0%, transparent 24%),
+      radial-gradient(circle at 70% 82%, rgba(255, 209, 220, 0.35) 0%, transparent 28%),
+      linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 243, 247, 0.9) 55%, rgba(255, 248, 239, 0.85) 100%);
     background-attachment: fixed;
   }
 
@@ -137,7 +140,7 @@
   h4,
   h5,
   h6 {
-    font-family: var(--font-sans);
+    font-family: var(--font-playfair), var(--font-sans);
     letter-spacing: -0.02em;
   }
 
@@ -151,6 +154,10 @@
     animation: fadeInUp 0.6s ease-in-out;
   }
 
+  .float-soft {
+    animation: floatSoft 5.2s ease-in-out infinite;
+  }
+
   .pink-gradient {
     @apply bg-linear-to-r from-primary via-accent to-secondary;
   }
@@ -160,7 +167,7 @@
   }
 
   .card-soft {
-    @apply rounded-2xl border border-border bg-white/90 backdrop-blur-sm shadow-[0_10px_35px_rgba(255,107,157,0.1)];
+    @apply rounded-3xl border border-border bg-white/90 backdrop-blur-sm shadow-[0_12px_35px_rgba(255,111,145,0.12)];
   }
 
   .glass-chip {
@@ -168,7 +175,21 @@
   }
 
   .hover-lift {
-    @apply transition duration-300 ease-out hover:-translate-y-1.5 hover:shadow-[0_18px_35px_rgba(255,107,157,0.2)];
+    @apply transition duration-300 ease-out hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgba(255,111,145,0.2)];
+  }
+
+  .soft-scroll-x {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 111, 145, 0.35) transparent;
+  }
+
+  .soft-scroll-x::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  .soft-scroll-x::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    background: rgba(255, 111, 145, 0.35);
   }
 
   .text-gradient-pink {
@@ -184,5 +205,15 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes floatSoft {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
   }
 }

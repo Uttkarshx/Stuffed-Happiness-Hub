@@ -272,6 +272,15 @@ export default function ProductDetailPage({ params }: ProductDetailProps) {
             {/* Description */}
             <p className="text-muted-foreground mb-8 leading-relaxed">{product.description}</p>
 
+            <div className="mb-8 rounded-2xl border border-border bg-white/70 p-4">
+              <h3 className="mb-3 text-lg font-semibold text-foreground">Why you'll love this 💖</h3>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li className="flex items-center gap-2"><Check size={16} className="text-primary" />Ultra-soft plush fabric with premium finish</li>
+                <li className="flex items-center gap-2"><Check size={16} className="text-primary" />Perfectly giftable for birthdays and surprises</li>
+                <li className="flex items-center gap-2"><Check size={16} className="text-primary" />Designed to deliver emotional, memorable moments</li>
+              </ul>
+            </div>
+
             {/* Best For */}
             <div className="mb-8">
               <p className="text-sm font-semibold text-foreground mb-3">Perfect For:</p>
@@ -523,6 +532,17 @@ export default function ProductDetailPage({ params }: ProductDetailProps) {
               Buy Now
             </Button>
           </div>
+        </div>
+      </div>
+
+      <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-border bg-white/95 p-3 backdrop-blur sm:hidden">
+        <div className="mx-auto flex max-w-7xl gap-2">
+          <Button onClick={handleAddToCart} variant="outline" className="flex-1 rounded-full">
+            Add to Cart
+          </Button>
+          <Button onClick={() => handleBuyNow(product)} className="flex-1 rounded-full bg-linear-to-r from-primary to-accent text-white">
+            Buy Now
+          </Button>
         </div>
       </div>
     </div>

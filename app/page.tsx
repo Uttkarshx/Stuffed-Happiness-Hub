@@ -101,12 +101,12 @@ function HomePage() {
             </p>
 
             <h1 className="mb-5 text-4xl font-bold leading-tight text-foreground sm:text-5xl lg:text-6xl">
-              Make Every Moment
-              <span className="text-gradient-pink block">Special</span>
+              Make Every Moment Cuter
+              <span className="text-gradient-pink block">🧸💕</span>
             </h1>
 
             <p className="mb-8 max-w-xl text-base text-muted-foreground sm:text-lg">
-              Thoughtfully curated stuffed gifts that speak feelings for you. From sweet date surprises to cozy comfort gifts, find the perfect pick in minutes.
+              Find the perfect plush gift for your loved ones. Gift smiles with our adorable plushies and turn ordinary days into heart-melting moments.
             </p>
 
             <div className="flex flex-col gap-3 sm:flex-row">
@@ -117,7 +117,7 @@ function HomePage() {
               </Link>
               <Link href="/#categories">
                 <Button size="lg" variant="outline" className="w-full rounded-full border-primary/40 bg-white/60 px-7 sm:w-auto">
-                  Explore Categories
+                  Explore Gifts
                 </Button>
               </Link>
             </div>
@@ -130,6 +130,9 @@ function HomePage() {
           </div>
 
           <div className="relative mx-auto h-80 w-full max-w-xl sm:h-96">
+            <div className="float-soft absolute -left-4 top-10 h-10 w-10 rounded-full bg-pink-300/50 blur-sm" />
+            <div className="float-soft absolute right-4 top-5 h-8 w-8 rounded-full bg-purple-300/40 blur-sm" />
+            <div className="float-soft absolute right-12 bottom-6 h-9 w-9 rounded-full bg-rose-200/60 blur-sm" />
             <div className="hero-glow absolute inset-0 rounded-4xl bg-linear-to-br from-white/85 via-white/65 to-primary/20" />
             <Image
               src="/images/products/teddy-pink.jpg"
@@ -190,16 +193,18 @@ function HomePage() {
             <p className="mt-2 text-muted-foreground">Most loved plushies this week.</p>
           </div>
           <Link href="/shop">
-            <Button variant="ghost" className="text-primary">View All</Button>
+            <Button variant="ghost" className="text-primary">View All →</Button>
           </Link>
         </div>
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="soft-scroll-x -mx-1 flex gap-5 overflow-x-auto px-1 pb-2">
           {trendingProducts.length > 0 ? (
             trendingProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
+              <div key={product.id} className="min-w-[285px] max-w-[285px] sm:min-w-[300px] sm:max-w-[300px]">
+                <ProductCard product={product} />
+              </div>
             ))
           ) : (
-            <p className="col-span-full rounded-2xl border border-border bg-muted/35 p-6 text-center text-muted-foreground">
+            <p className="w-full rounded-2xl border border-border bg-muted/35 p-6 text-center text-muted-foreground">
               No products available right now.
             </p>
           )}
@@ -213,16 +218,18 @@ function HomePage() {
             <p className="mt-2 text-muted-foreground">Top-rated products your loved ones adore.</p>
           </div>
           <Link href="/shop?sort=popularity">
-            <Button variant="ghost" className="text-primary">Discover More</Button>
+            <Button variant="ghost" className="text-primary">Discover More →</Button>
           </Link>
         </div>
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="soft-scroll-x -mx-1 flex gap-5 overflow-x-auto px-1 pb-2">
           {bestSellerProducts.length > 0 ? (
             bestSellerProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
+              <div key={product.id} className="min-w-[285px] max-w-[285px] sm:min-w-[300px] sm:max-w-[300px]">
+                <ProductCard product={product} />
+              </div>
             ))
           ) : (
-            <p className="col-span-full rounded-2xl border border-border bg-muted/35 p-6 text-center text-muted-foreground">
+            <p className="w-full rounded-2xl border border-border bg-muted/35 p-6 text-center text-muted-foreground">
               No products available right now.
             </p>
           )}

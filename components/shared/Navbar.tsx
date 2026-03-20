@@ -23,6 +23,7 @@ export default function Navbar() {
   const [searchResults, setSearchResults] = useState<Product[]>([]);
   const [searchLoading, setSearchLoading] = useState(false);
   const [hasMounted, setHasMounted] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const profileRef = useRef<HTMLDivElement | null>(null);
   const searchRef = useRef<HTMLDivElement | null>(null);
@@ -46,6 +47,13 @@ export default function Navbar() {
 
   useEffect(() => {
     setHasMounted(true);
+  }, []);
+
+  useEffect(() => {
+    const onScroll = () => setIsScrolled(window.scrollY > 10);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   useEffect(() => {
@@ -96,7 +104,12 @@ export default function Navbar() {
   }, [normalizedQuery]);
 
   return (
-    <nav className="sticky top-0 z-50 border-b border-border/70 bg-white/75 backdrop-blur-xl">
+    <nav
+      className={cn(
+        'sticky top-0 z-50 border-b border-border/70 backdrop-blur-xl transition-all duration-300',
+        isScrolled ? 'bg-white/88 shadow-[0_10px_30px_rgba(255,111,145,0.12)]' : 'bg-white/70'
+      )}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between gap-2 py-2 sm:gap-3 sm:py-3">
           {/* Logo */}

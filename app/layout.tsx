@@ -1,14 +1,16 @@
 import type { Metadata } from 'next'
-import { Poppins, Inter } from 'next/font/google'
+import { Poppins, Inter, Playfair_Display } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { Toaster } from 'sonner'
 import Navbar from '@/components/shared/Navbar'
 import Footer from '@/components/shared/Footer'
 import ScrollToTop from '@/components/shared/ScrollToTop'
+import WhatsAppFloat from '@/components/shared/WhatsAppFloat'
 import './globals.css'
 
 const _poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: '--font-poppins' });
 const _inter = Inter({ subsets: ["latin"], variable: '--font-inter' });
+const _playfair = Playfair_Display({ subsets: ["latin"], weight: ["600", "700"], variable: '--font-playfair' });
 
 export const metadata: Metadata = {
   title: 'Stuffed Happiness Hub | Emotional Gifting Store',
@@ -38,13 +40,14 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${_poppins.variable} ${_inter.variable}`}>
+    <html lang="en" className={`${_poppins.variable} ${_inter.variable} ${_playfair.variable}`}>
       <body className="bg-background text-foreground">
         <Navbar />
         <main className="min-h-screen pb-16 lg:pb-0">
           {children}
         </main>
         <Footer />
+        <WhatsAppFloat />
         <ScrollToTop />
         <Toaster richColors position="top-right" />
         <Analytics />
