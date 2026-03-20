@@ -6,11 +6,25 @@ const connectDB = async () => {
       throw new Error('MONGO_URI is not defined in environment');
     }
 
-    await mongoose.connect(process.env.MONGO_URI);
-    console.info('MongoDB connected');
+    mongoose.connection.on('connected', () => {
+      console.info('MongoDB connected');
+    });
+
+    mongoose.connection.on('error', (error) => {
+      console.error(`MongoDB runtime error: ${error.message}`);
+    });
+
+    mongoose.connection.on('disconnected', () => {
+      console.warn('MongoDB disconnected');
+    });
+
+    await mongoose.connect(process.env.MONGO_URI, {
+      serverSelectionTimeoutMS: 10000,
+    });
+    return true;
   } catch (error) {
     console.error(`MongoDB connection failed: ${error.message}`);
-    process.exit(1);
+    return false;
   }
 };
 

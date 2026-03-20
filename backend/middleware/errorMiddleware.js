@@ -7,6 +7,10 @@ const notFound = (req, res, next) => {
 const errorHandler = (err, req, res, next) => {
   const statusCode = res.statusCode && res.statusCode !== 200 ? res.statusCode : 500;
 
+  console.error(
+    `[API ERROR] ${req.method} ${req.originalUrl} -> ${statusCode} :: ${err.message || 'Unknown error'}`
+  );
+
   res.status(statusCode).json({
     success: false,
     message: err.message || 'Internal server error',

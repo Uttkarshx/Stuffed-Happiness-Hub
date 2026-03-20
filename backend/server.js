@@ -14,13 +14,36 @@ const { testWhatsApp } = require('./controllers/orderController');
 const { notFound, errorHandler } = require('./middleware/errorMiddleware');
 
 const app = express();
-const allowedOrigins = ['http://localhost:3000', 'http://localhost:3001'];
+const defaultOrigins = ['http://localhost:3000', 'http://localhost:3001'];
+const envOrigins = String(process.env.CORS_ORIGINS || '')
+  .split(',')
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+const allowedOrigins = [...new Set([...defaultOrigins, ...envOrigins])];
+
+const isAllowedOrigin = (origin) => {
+  if (!origin) {
+    return true;
+  }
+
+  if (allowedOrigins.includes(origin)) {
+    return true;
+  }
+
+  return /^https:\/\/[a-z0-9-]+\.vercel\.app$/i.test(origin);
+};
 
 connectDB();
 
 app.use(
   cors({
-    origin: allowedOrigins,
+    origin: (origin, callback) => {
+      if (isAllowedOrigin(origin)) {
+        return callback(null, true);
+      }
+
+      return callback(new Error(`CORS blocked for origin: ${origin}`));
+    },
     credentials: true,
   })
 );
