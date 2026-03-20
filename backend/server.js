@@ -77,7 +77,10 @@ app.use('/api/orders', orderRoutes);
 app.use('/api/admin', adminRoutes);
 
 // Backward-compatible direct routes
+app.use('/auth', authRoutes);
 app.use('/products', productRoutes);
+app.use('/orders', orderRoutes);
+app.use('/admin', adminRoutes);
 
 app.use(notFound);
 app.use(errorHandler);

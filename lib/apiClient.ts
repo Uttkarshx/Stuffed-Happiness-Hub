@@ -1,9 +1,26 @@
 import axios from 'axios';
 
-const API_BASE_URL = (
-  process.env.NEXT_PUBLIC_API_URL ||
-  'https://stuffed-happiness-hub.onrender.com/api'
-).replace(/\/$/, '');
+function normalizeApiBaseUrl(rawUrl: string): string {
+  const trimmed = rawUrl.replace(/\/$/, '');
+
+  try {
+    const parsed = new URL(trimmed);
+    const pathname = parsed.pathname.replace(/\/$/, '');
+
+    if (!pathname || pathname === '/') {
+      parsed.pathname = '/api';
+      return parsed.toString().replace(/\/$/, '');
+    }
+
+    return parsed.toString().replace(/\/$/, '');
+  } catch {
+    return trimmed;
+  }
+}
+
+const API_BASE_URL = normalizeApiBaseUrl(
+  process.env.NEXT_PUBLIC_API_URL || 'https://stuffed-happiness-hub.onrender.com/api'
+);
 
 const apiClient = axios.create({
   baseURL: API_BASE_URL,
