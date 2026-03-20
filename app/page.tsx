@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Sparkles, Gift, ShieldCheck, Truck } from 'lucide-react';
 import { getProducts } from '@/lib/api';
+import { fallbackProducts } from '@/lib/fallbackProducts';
 import { Product } from '@/lib/types';
 import ProductCard from '@/components/product/ProductCard';
 import { Button } from '@/components/ui/button';
@@ -17,15 +18,19 @@ function HomePage() {
     const loadProducts = async () => {
       try {
         const data = await getProducts();
+        if (!data.length) {
+          console.warn('Products API returned empty payload. Using fallback stuffed toys.');
+          setProducts(fallbackProducts);
+          return;
+        }
         if (process.env.NODE_ENV !== 'production') {
           console.log('Products:', data);
         }
         setProducts(data);
       } catch (error: unknown) {
-        const message = error instanceof Error ? error.message : 'Failed to load products';
         console.warn('Failed to fetch products:', error);
-        toast.error(message);
-        setProducts([]);
+        toast.warning('Live product server is unreachable. Showing stuffed toy catalog.');
+        setProducts(fallbackProducts);
       }
     };
 

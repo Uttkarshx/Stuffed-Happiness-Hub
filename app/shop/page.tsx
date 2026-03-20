@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import { getProducts } from '@/lib/api';
+import { fallbackProducts } from '@/lib/fallbackProducts';
 import ProductCard from '@/components/product/ProductCard';
 import { Product } from '@/lib/types';
 import { Button } from '@/components/ui/button';
@@ -26,15 +27,19 @@ export default function ShopPage() {
       setLoading(true);
       try {
         const data = await getProducts();
+        if (!data.length) {
+          console.warn('Products API returned empty payload. Using fallback stuffed toys.');
+          setProducts(fallbackProducts);
+          return;
+        }
         if (process.env.NODE_ENV !== 'production') {
           console.log('Products:', data);
         }
         setProducts(data);
       } catch (error: unknown) {
-        const message = error instanceof Error ? error.message : 'Failed to load products';
         console.warn('Failed to fetch products:', error);
-        toast.error(message);
-        setProducts([]);
+        toast.warning('Live product server is unreachable. Showing stuffed toy catalog.');
+        setProducts(fallbackProducts);
       } finally {
         setLoading(false);
       }
