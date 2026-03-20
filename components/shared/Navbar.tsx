@@ -424,24 +424,6 @@ export default function Navbar() {
         )}
       </div>
 
-      <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-border bg-white/95 px-3 py-2 pb-[calc(env(safe-area-inset-bottom)+0.5rem)] backdrop-blur lg:hidden">
-        <div className="mx-auto flex max-w-7xl items-center justify-around">
-          <Link href="/wishlist" className="relative rounded-xl px-3 py-2 text-xs font-medium text-foreground">
-            Wishlist
-            {wishlistCount > 0 && (
-              <span className="absolute right-0 top-0 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] text-white">
-                {wishlistCount}
-              </span>
-            )}
-          </Link>
-          <Link href="/shop" className="rounded-xl px-3 py-2 text-xs font-medium text-foreground">
-            Shop
-          </Link>
-          <Link href="/cart" className={cn('rounded-xl px-3 py-2 text-xs font-medium text-foreground', cartCount > 0 && 'text-primary')}>
-            Cart ({cartCount})
-          </Link>
-        </div>
-      </div>
     </nav>
   );
 }

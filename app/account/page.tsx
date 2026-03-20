@@ -226,9 +226,22 @@ export default function AccountPage() {
                       transition={{ delay: index * 0.1 }}
                       className="p-6 rounded-2xl border border-border bg-white"
                     >
+                      {(() => {
+                        const firstItem = order.items[0];
+
+                        return (
                       <div className="flex items-start justify-between mb-4">
-                        <div>
-                          <h3 className="font-semibold text-foreground">Order #{order.id.slice(0, 12)}</h3>
+                        <div className="flex items-start gap-4">
+                          <img
+                            src={firstItem?.image || '/images/products/teddy-pink.jpg'}
+                            alt={firstItem?.name || 'Ordered product'}
+                            className="h-14 w-14 rounded-lg object-cover border border-border"
+                          />
+                          <div>
+                          <h3 className="font-semibold text-foreground">
+                            {firstItem?.name || 'Product'}
+                            {order.items.length > 1 ? ` +${order.items.length - 1} more` : ''}
+                          </h3>
                           <p className="text-sm text-muted-foreground">
                             {new Date(order.createdAt).toLocaleDateString('en-IN', {
                               year: 'numeric',
@@ -236,6 +249,7 @@ export default function AccountPage() {
                               day: 'numeric',
                             })}
                           </p>
+                          </div>
                         </div>
                         <span className={`px-3 py-1 rounded-full text-sm font-semibold capitalize ${
                           order.status === 'delivered'
@@ -249,6 +263,8 @@ export default function AccountPage() {
                           {order.status}
                         </span>
                       </div>
+                        );
+                      })()}
                       <div className="flex justify-between items-end">
                         <div className="text-sm text-muted-foreground">
                           {order.items.length} item{order.items.length !== 1 ? 's' : ''}

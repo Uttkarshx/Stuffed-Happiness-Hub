@@ -106,7 +106,10 @@ export default function OrdersPage() {
           </motion.div>
         ) : (
           <div className="space-y-4">
-            {orders.map((order, index) => (
+            {orders.map((order, index) => {
+              const firstItem = order.items[0];
+
+              return (
               <motion.div
                 key={order.id}
                 initial={{ opacity: 0, y: 20 }}
@@ -115,8 +118,17 @@ export default function OrdersPage() {
                 className="p-6 rounded-2xl border border-border bg-white hover:shadow-lg transition-shadow"
               >
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                  <div>
-                    <h3 className="font-semibold text-foreground text-lg mb-2">{order.id}</h3>
+                  <div className="flex items-start gap-4">
+                    <img
+                      src={firstItem?.image || '/images/products/teddy-pink.jpg'}
+                      alt={firstItem?.name || 'Ordered product'}
+                      className="h-16 w-16 rounded-xl object-cover border border-border"
+                    />
+                    <div>
+                    <h3 className="font-semibold text-foreground text-lg mb-1">
+                      {firstItem?.name || 'Product'}
+                      {order.items.length > 1 ? ` +${order.items.length - 1} more` : ''}
+                    </h3>
                     <p className="text-muted-foreground text-sm mb-3">
                       {new Date(order.createdAt).toLocaleDateString('en-IN', {
                         year: 'numeric',
@@ -139,6 +151,7 @@ export default function OrdersPage() {
                         {cancellingOrderId === order.id ? 'Cancelling...' : 'Cancel Order'}
                       </Button>
                     )}
+                    </div>
                   </div>
                   <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
                     <span className={`px-4 py-2 rounded-full text-sm font-semibold capitalize ${getStatusColor(order.status)}`}>
@@ -164,7 +177,8 @@ export default function OrdersPage() {
                   </div>
                 </div>
               </motion.div>
-            ))}
+              );
+            })}
           </div>
         )}
       </div>

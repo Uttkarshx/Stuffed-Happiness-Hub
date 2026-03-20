@@ -118,7 +118,13 @@ export default function AccountOrdersPage() {
                   className="p-6 rounded-2xl border border-border bg-white hover:shadow-lg transition-shadow"
                 >
                   <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-                    <div>
+                    <div className="flex items-start gap-4">
+                      <img
+                        src={firstItem?.image || '/images/products/teddy-pink.jpg'}
+                        alt={firstItem?.name || 'Ordered product'}
+                        className="h-16 w-16 rounded-xl object-cover border border-border"
+                      />
+                      <div>
                       <p className="text-sm text-muted-foreground mb-1">
                         {new Date(order.createdAt).toLocaleDateString('en-IN', {
                           year: 'numeric',
@@ -130,7 +136,7 @@ export default function AccountOrdersPage() {
                         {firstItem?.name || 'Product'}
                         {order.items.length > 1 ? ` +${order.items.length - 1} more` : ''}
                       </h3>
-                      <p className="text-sm text-muted-foreground">Order #{order.id.slice(0, 12)}</p>
+                      </div>
                     </div>
 
                     <div className="flex flex-col sm:flex-row sm:items-center gap-4">

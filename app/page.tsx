@@ -180,8 +180,14 @@ function HomePage() {
               <p className="mt-2 text-sm text-muted-foreground">{offerBanners[bannerIndex].subtitle}</p>
               <Link href="/shop" className="mt-4 inline-block text-sm font-semibold text-primary">Shop Offer →</Link>
             </div>
-            <div className="relative h-44 overflow-hidden rounded-2xl sm:h-48">
-              <Image src={offerBanners[bannerIndex].image} alt={offerBanners[bannerIndex].title} fill className="object-cover" sizes="(max-width: 768px) 100vw, 40vw" />
+            <div className="relative h-44 overflow-hidden rounded-2xl bg-linear-to-br from-rose-50 to-white p-2 sm:h-48 sm:p-3">
+              <Image
+                src={offerBanners[bannerIndex].image}
+                alt={offerBanners[bannerIndex].title}
+                fill
+                className="object-contain object-center"
+                sizes="(max-width: 768px) 100vw, 40vw"
+              />
             </div>
           </div>
         </div>
