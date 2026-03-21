@@ -18,9 +18,9 @@ export const metadata: Metadata = {
   title: 'Stuffed Happiness Hub | Emotional Gifting Store',
   description: 'Make every moment special with premium stuffed toys and emotional gifts for girlfriend, kids, friends, and family.',
   icons: {
-    icon: '/favicon.ico?v=2',
-    shortcut: '/favicon.ico?v=2',
-    apple: '/favicon.png?v=2',
+    icon: '/favicon.ico?v=3',
+    shortcut: '/favicon.ico?v=3',
+    apple: '/favicon.png?v=3',
   },
 }
 
