@@ -115,7 +115,7 @@ export default function OrdersPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className="p-6 rounded-2xl border border-border bg-white hover:shadow-lg transition-shadow"
+                className="p-6 sm:p-7 rounded-2xl border border-border bg-white hover:shadow-lg transition-shadow"
               >
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                   <div className="flex items-start gap-4">
@@ -125,32 +125,35 @@ export default function OrdersPage() {
                       className="h-16 w-16 rounded-xl object-cover border border-border"
                     />
                     <div>
-                    <h3 className="font-semibold text-foreground text-lg mb-1">
-                      {firstItem?.name || 'Product'}
-                      {order.items.length > 1 ? ` +${order.items.length - 1} more` : ''}
-                    </h3>
-                    <p className="text-muted-foreground text-sm mb-3">
-                      {new Date(order.createdAt).toLocaleDateString('en-IN', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric',
-                      })}
-                    </p>
-                    <p className="text-muted-foreground text-sm">
-                      {order.items.length} item{order.items.length > 1 ? 's' : ''} • Total:{' '}
-                      <span className="font-bold text-foreground">{formatPrice(order.total)}</span>
-                    </p>
-                    {order.status === 'pending' && (
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="mt-4 border-red-300 text-red-600 hover:bg-red-50"
-                        disabled={cancellingOrderId === order.id}
-                        onClick={() => handleCancelOrder(order.id)}
-                      >
-                        {cancellingOrderId === order.id ? 'Cancelling...' : 'Cancel Order'}
-                      </Button>
-                    )}
+                      <h3 className="font-semibold text-foreground text-lg leading-tight">
+                        {firstItem?.name || 'Product'}
+                        {order.items.length > 1 ? ` +${order.items.length - 1} more` : ''}
+                      </h3>
+                      <p className="mt-1 text-sm text-muted-foreground">
+                        Order placed on:{' '}
+                        {new Date(order.createdAt).toLocaleDateString('en-IN', {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric',
+                        })}
+                      </p>
+                      <p className="mt-1 text-sm text-muted-foreground">
+                        Qty: <span className="font-medium text-foreground">{firstItem?.quantity ?? 1}</span>
+                      </p>
+                      <p className="mt-1 text-sm text-muted-foreground">
+                        Price: <span className="font-semibold text-foreground">{formatPrice(order.total)}</span>
+                      </p>
+                      {order.status === 'pending' && (
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="mt-4 border-red-300 text-red-600 hover:bg-red-50"
+                          disabled={cancellingOrderId === order.id}
+                          onClick={() => handleCancelOrder(order.id)}
+                        >
+                          {cancellingOrderId === order.id ? 'Cancelling...' : 'Cancel Order'}
+                        </Button>
+                      )}
                     </div>
                   </div>
                   <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">

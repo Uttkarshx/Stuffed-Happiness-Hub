@@ -69,7 +69,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       <Link href={`/product/${product._id || product.id}`}>
         <div className="group card-soft h-full flex flex-col overflow-hidden transition duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(255,111,145,0.22)]">
           {/* Image Container */}
-          <div className="relative h-64 overflow-hidden bg-muted/50 sm:h-72">
+          <div className="relative aspect-square overflow-hidden rounded-xl bg-muted/50">
             <Image
               src={imageSrc}
               alt={product.name}

@@ -224,7 +224,7 @@ export default function AccountPage() {
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: index * 0.1 }}
-                      className="p-6 rounded-2xl border border-border bg-white"
+                      className="p-6 sm:p-7 rounded-2xl border border-border bg-white"
                     >
                       {(() => {
                         const firstItem = order.items[0];
@@ -238,16 +238,20 @@ export default function AccountPage() {
                             className="h-14 w-14 rounded-lg object-cover border border-border"
                           />
                           <div>
-                          <h3 className="font-semibold text-foreground">
+                          <h3 className="font-semibold text-foreground leading-tight">
                             {firstItem?.name || 'Product'}
                             {order.items.length > 1 ? ` +${order.items.length - 1} more` : ''}
                           </h3>
                           <p className="text-sm text-muted-foreground">
+                            Order placed on:{' '}
                             {new Date(order.createdAt).toLocaleDateString('en-IN', {
                               year: 'numeric',
                               month: 'long',
                               day: 'numeric',
                             })}
+                          </p>
+                          <p className="text-sm text-muted-foreground">
+                            Qty: <span className="font-medium text-foreground">{firstItem?.quantity ?? 1}</span>
                           </p>
                           </div>
                         </div>

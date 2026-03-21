@@ -111,12 +111,20 @@ export default function Navbar() {
       )}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between gap-2 py-2 sm:gap-3 sm:py-3">
+        <motion.div
+          className="flex items-center justify-between gap-2 py-2 sm:gap-3 sm:py-3"
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45, ease: 'easeOut' }}
+        >
           {/* Logo */}
           <Link href="/" className="flex shrink-0 items-center gap-2">
             <div className="hero-glow flex h-10 w-10 items-center justify-center rounded-2xl bg-linear-to-br from-primary to-accent shadow-md">
               <span className="text-white font-bold text-lg">💖</span>
             </div>
+            <span className="text-[15px] font-semibold text-foreground sm:hidden">
+              Stuffed Happiness Hub
+            </span>
             <span className="hidden text-lg font-bold text-foreground sm:inline">
               Stuffed Happiness Hub
             </span>
@@ -314,6 +322,32 @@ export default function Navbar() {
             </div>
 
             {/* Mobile Menu Button */}
+            <div className="flex items-center gap-1 sm:hidden">
+              <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}>
+                <Link
+                  href="/cart"
+                  className="relative flex h-10 w-10 items-center justify-center rounded-full transition-colors hover:bg-muted"
+                  aria-label="Open cart"
+                >
+                  <ShoppingCart size={20} className="text-foreground" />
+                  {cartCount > 0 && (
+                    <span className="absolute -right-1 -top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-primary px-1 text-[10px] font-semibold text-white">
+                      {cartCount}
+                    </span>
+                  )}
+                </Link>
+              </motion.div>
+              <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}>
+                <Link
+                  href={isAuthenticated ? '/profile' : '/auth/login'}
+                  className="flex h-10 w-10 items-center justify-center rounded-full transition-colors hover:bg-muted"
+                  aria-label="Open profile"
+                >
+                  <User size={20} className="text-foreground" />
+                </Link>
+              </motion.div>
+            </div>
+
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="rounded-full p-2 transition-colors hover:bg-muted lg:hidden"
@@ -322,7 +356,7 @@ export default function Navbar() {
               {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
-        </div>
+        </motion.div>
 
         {/* Mobile Navigation */}
         {mobileMenuOpen && (

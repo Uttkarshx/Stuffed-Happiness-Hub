@@ -115,7 +115,7 @@ export default function AccountOrdersPage() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.06 }}
-                  className="p-6 rounded-2xl border border-border bg-white hover:shadow-lg transition-shadow"
+                  className="p-6 sm:p-7 rounded-2xl border border-border bg-white hover:shadow-lg transition-shadow"
                 >
                   <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                     <div className="flex items-start gap-4">
@@ -125,23 +125,27 @@ export default function AccountOrdersPage() {
                         className="h-16 w-16 rounded-xl object-cover border border-border"
                       />
                       <div>
-                      <p className="text-sm text-muted-foreground mb-1">
-                        {new Date(order.createdAt).toLocaleDateString('en-IN', {
-                          year: 'numeric',
-                          month: 'long',
-                          day: 'numeric',
-                        })}
-                      </p>
-                      <h3 className="text-lg font-semibold text-foreground mb-1">
-                        {firstItem?.name || 'Product'}
-                        {order.items.length > 1 ? ` +${order.items.length - 1} more` : ''}
-                      </h3>
+                        <h3 className="text-lg font-semibold text-foreground leading-tight">
+                          {firstItem?.name || 'Product'}
+                          {order.items.length > 1 ? ` +${order.items.length - 1} more` : ''}
+                        </h3>
+                        <p className="mt-1 text-sm text-muted-foreground">
+                          Order placed on:{' '}
+                          {new Date(order.createdAt).toLocaleDateString('en-IN', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric',
+                          })}
+                        </p>
+                        <p className="mt-1 text-sm text-muted-foreground">
+                          Qty: <span className="font-medium text-foreground">{firstItem?.quantity ?? 1}</span>
+                        </p>
                       </div>
                     </div>
 
                     <div className="flex flex-col sm:flex-row sm:items-center gap-4">
                       <div className="text-right">
-                        <p className="text-sm text-muted-foreground">Amount</p>
+                        <p className="text-sm text-muted-foreground">Price</p>
                         <p className="text-xl font-bold text-foreground">{formatPrice(order.total)}</p>
                       </div>
                       <span className={`px-4 py-2 rounded-full text-sm font-semibold capitalize ${getStatusBadgeClass(order.status)}`}>

@@ -154,7 +154,7 @@ function HomePage() {
               fill
               priority
               loading="eager"
-              className="rounded-4xl object-cover p-5"
+              className="float-soft rounded-4xl object-contain object-center p-6 sm:p-8"
               sizes="(max-width: 1024px) 100vw, 50vw"
             />
 
