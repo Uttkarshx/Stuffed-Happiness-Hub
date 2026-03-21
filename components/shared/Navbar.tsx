@@ -119,8 +119,8 @@ export default function Navbar() {
         >
           {/* Logo */}
           <Link href="/" className="flex shrink-0 items-center gap-2">
-            <div className="hero-glow flex h-10 w-10 items-center justify-center rounded-2xl bg-linear-to-br from-primary to-accent shadow-md">
-              <span className="text-white font-bold text-lg">💖</span>
+            <div className="hero-glow relative h-10 w-10 overflow-hidden rounded-2xl border border-primary/20 bg-white shadow-md">
+              <Image src="/favicon.png" alt="Stuffed Happiness Hub logo" fill className="object-cover" priority />
             </div>
             <span className="text-[15px] font-semibold text-foreground sm:hidden">
               Stuffed Happiness Hub
