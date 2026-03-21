@@ -18,21 +18,9 @@ export const metadata: Metadata = {
   title: 'Stuffed Happiness Hub | Emotional Gifting Store',
   description: 'Make every moment special with premium stuffed toys and emotional gifts for girlfriend, kids, friends, and family.',
   icons: {
-    icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
-    ],
-    apple: '/apple-icon.png',
+    icon: '/favicon.ico?v=2',
+    shortcut: '/favicon.ico?v=2',
+    apple: '/favicon.png?v=2',
   },
 }
 
